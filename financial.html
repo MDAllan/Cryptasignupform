@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypta Signup - Financial Information</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="signup-page">
+    <header class="header">
+        <div class="logo">
+            <img src="images/Crypta main logo.png"alt="Crypta main logo">
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#prices">Prices</a></li>
+            <li><a href="#support">Support</a></li>
+            <li><a href="#privacy">Privacy</a></li>
+        </ul>
+    </nav>
+
+    <form id="signup-form" class="signup-form" novalidate>
+        <fieldset class="form-step">
+            <legend>Financial Information</legend>
+
+            <div class="form-group">
+                <label for="income">Annual Income Level:</label>
+                <select id="income" required>
+                    <option value="" disabled selected>Select income level</option>
+                    <option value="under_25000">Under $25,000</option>
+                    <option value="25000_50000">$25,000 - $50,000</option>
+                    <option value="50000_75000">$50,000 - $75,000</option>
+                    <option value="75000_100000">$75,000 - $100,000</option>
+                    <option value="100000_150000">$100,000 - $150,000</option>
+                    <option value="150000_200000">$150,000 - $200,000</option>
+                    <option value="200000_250000">$200,000 - $250,000</option>
+                    <option value="250000_300000">$250,000 - $300,000</option>
+                    <option value="300000_up">Over $300,000</option>
+                </select>
+            </div>
+            <div class="form-group experience-container">
+                <label for="experience">Investment Experience (Years):</label>
+                <div class="inline-options">
+                    <input id="experience" type="range" min="0" max="30" value="0" required oninput="updateExperienceOutput(this.value)">
+                    <span id="experience-output">0</span>
+                </div>
+            </div>
+            
+
+            <div class="form-group">
+                <label for="risk_tolerance">Risk Tolerance:</label>
+                <select id="risk_tolerance" required>
+                    <option value="" disabled selected>Select risk tolerance</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+
+            <div class="goals-container form-group">
+                <label>Investment Goals:</label>
+                <div class="investment-goals">
+                    <label><input type="checkbox" id="retirement" name="goals"> Retirement</label>
+                    <label><input type="checkbox" id="building-wealth" name="goals"> Building Wealth</label>
+                    <label><input type="checkbox" id="saving-for-college" name="goals"> Saving for College</label>
+                    <label><input type="checkbox" id="buying-a-house" name="goals"> Buying a House</label>
+                    <label><input type="checkbox" id="other-goals" name="goals"> Other</label>
+                    <input type="text" id="other-goals-text" name="other-goals-text" placeholder="Specify other" maxlength="100">
+                </div>
+            </div>
+
+            <fieldset class="form-step">
+                <div class="form-group">
+                    <label for="bank-account">Bank Account Information:</label>
+                    <div class="bank-options">
+                        <div class="bank-option">
+                            <img src="images/RBClogo.png" alt="RBC Logo">
+                            <label for="RBC">RBC</label>
+                            <input type="radio" name="bank" id="RBC" value="RBC" required>
+                        </div>
+                        <div class="bank-option">
+                            <img src="images/TDbanklogo.svg" alt="TD Logo">
+                            <label for="TD">TD</label>
+                            <input type="radio" name="bank" id="TD" value="TD">
+                        </div>
+                        <div class="bank-option">
+                            <img src="images/scotiabanklogo.png" alt="Scotiabank Logo">
+                            <label for="Scotiabank">Scotiabank</label>
+                            <input type="radio" name="bank" id="Scotiabank" value="Scotiabank">
+                        </div>
+                        <div class="bank-option">
+                            <img src="images/BMOlogo.png" alt="BMO Logo">
+                            <label for="BMO">BMO</label>
+                            <input type="radio" name="bank" id="BMO" value="BMO">
+                        </div>
+                        <div class="bank-option">
+                            <img src="images/CIBClogo.png" alt="CIBC Logo">
+                            <label for="CIBC">CIBC</label>
+                            <input type="radio" name="bank" id="CIBC" value="CIBC">
+                            
+                            
+                        </div>
+                    </div>
+
+                    <div class="other-bank-section">
+                        <label>Other Bank Institution:</label>
+                        <div class="form-row">
+                            <div>
+                                <input type="text" id="transit-number" name="transit-number" placeholder="Transit Number" maxlength="5">
+                            </div>
+                            <div>
+                                <input type="text" id="account-number" name="account-number" placeholder="Account Number" maxlength="12">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group checkbox-agree">
+                <input type="checkbox" id="legal_agreement" required>
+                <label for="legal_agreement">I  confirm my acceptance of the terms and conditions provided by Crypta. For further information, please refer to our<a href="#">privacy policy.</a>
+
+
+
+
+
+
+                </label>
+            </div>
+            
+            <button type="submit">Submit</button>
+        </fieldset>
+    </form>
+</main>
+
+<script>
+    function updateExperienceOutput(value) {
+        document.getElementById('experience-output').textContent = value;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('signup-form');
+        const validationMessageDiv = document.createElement('div');
+        validationMessageDiv.className = 'validation-message';
+        form.appendChild(validationMessageDiv);
+
+        form.addEventListener('submit', function(event) {
+            validationMessageDiv.innerText = '';
+            validationMessageDiv.style.display = 'none';
+            
+            let isValid = true;
+            const requiredFields = [
+                document.getElementById('income'),
+                document.getElementById('risk_tolerance'),
+                document.getElementById('legal_agreement')
+            ];
+
+            requiredFields.forEach(field => {
+                if (!field || !field.value) {
+                    isValid = false;
+                }
+            });
+
+            const selectedBank = document.querySelector('input[name="bank"]:checked');
+            if (!selectedBank) {
+                isValid = false;
+            }
+
+            const otherBankInputs = [document.getElementById('transit-number'), document.getElementById('account-number')];
+            if (selectedBank && selectedBank.value === 'other') {
+                otherBankInputs.forEach(input => {
+                    if (!input.value) {
+                        isValid = false;
+                    }
+                });
+            }
+
+            if (!isValid) {
+                validationMessageDiv.innerText = 'Please fill out all required fields.';
+                validationMessageDiv.style.display = 'block';
+                event.preventDefault();
+            }
+        });
+    });
+
+    function updateExperienceOutput(value) {
+        document.getElementById('experience-output').textContent = value;
+    }
+</script>
+</body>
+</html>
